@@ -171,4 +171,5 @@ return [
 
     'attributes' => [],
 
+    'invalid.user.id.password' => 'Invalid user id or password.',
 ];
