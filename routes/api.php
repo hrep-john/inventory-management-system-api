@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/** Authentication routes **/
+Route::prefix('/auth')->group(base_path('routes/group/auth.php'));
