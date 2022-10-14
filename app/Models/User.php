@@ -9,12 +9,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements Auditable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
     use \OwenIt\Auditing\Auditable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -46,4 +48,11 @@ class User extends Authenticatable implements Auditable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getUserRolesAttribute()
+    {
+        // $roles = $this->getRoleNames();
+
+        // return count($roles) > 0 ? $roles : [];
+    }
 }
