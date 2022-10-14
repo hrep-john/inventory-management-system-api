@@ -3,8 +3,14 @@
 namespace {{ namespace }};
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Symfony\Component\HttpFoundation\Response;
+use App\Traits\ApiResponder;
+use App\Helpers\ApiErrorResponse;
 
 class {{ class }}
 {
+    use ApiResponder;
+
     //
 }

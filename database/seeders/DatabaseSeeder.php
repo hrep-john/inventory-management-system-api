@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            SuperAdminUserSeeder::class
+            InitialRolesAndPermissionsSeeder::class,
+            SuperAdminUserSeeder::class,
+            InitialCategorySeeder::class,
+            InitialUomSeeder::class,
         ]);
     }
 }

@@ -19,7 +19,6 @@ class CreateProductUomTable extends Migration
             $table->unsignedBigInteger('uom_id');
             $table->unsignedBigInteger('qty');
 
-            $table->softDeletes();
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

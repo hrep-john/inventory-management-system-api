@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->bind(\App\Http\Services\Contracts\ProductServiceInterface::class, \App\Http\Services\ProductService::class);
+        $this->app->bind(\App\Http\Services\Contracts\CategoryServiceInterface::class, \App\Http\Services\CategoryService::class);
+        $this->app->bind(\App\Http\Services\Contracts\UomServiceInterface::class, \App\Http\Services\UomService::class);
     }
 }

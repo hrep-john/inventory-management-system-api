@@ -15,7 +15,7 @@ class CreateUomsTable extends Migration
     {
         Schema::create('uoms', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable();
+            $table->string('code')->unique()->nullable();
             $table->string('name');
             $table->text('remarks')->nullable();
 
