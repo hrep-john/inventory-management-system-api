@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Helpers\ApiErrorResponse;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
+use App\Http\Requests\Product\UploadPhotoRequest;
 use App\Http\Resources\Product\BasicResource;
 use App\Http\Resources\Product\FullResource;
 use App\Http\Services\Contracts\ProductServiceInterface;
@@ -132,5 +133,25 @@ class ProductController
         }
 
         return $this->success(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function uploadPhoto(UploadPhotoRequest $request)
+    {
+        try {
+            $photo = $request->validated()['photo'];
+            $path = $this->service->uploadPhoto($photo);
+        } catch (Exception $e) {
+            $this->throwError(
+                Lang::get('error.upload.failed'), 
+                Arr::wrap($e->getMessage()), 
+                Response::HTTP_INTERNAL_SERVER_ERROR, 
+                ApiErrorResponse::SERVER_ERROR_CODE
+            );
+        }
+
+        return $this->success([
+            'path' => $path,
+            'message' => Lang::get('success.uploaded')
+        ], Response::HTTP_CREATED);
     }
 }
