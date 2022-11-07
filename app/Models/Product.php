@@ -14,6 +14,7 @@ class Product extends BaseModel
         'created_by',
         'updated_by',
         'inventory',
+        'photo_url',
     ];
 
     public function category()
@@ -40,6 +41,7 @@ class Product extends BaseModel
             'name' => $this->name,
             'remarks' => $this->remarks,
             'inventory' => $this->inventory,
+            'photo_url' => $this->photo_url,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,

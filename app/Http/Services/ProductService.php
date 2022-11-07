@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 use App\Http\Services\Contracts\ProductServiceInterface;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService extends BaseService implements ProductServiceInterface
 {
@@ -14,6 +15,17 @@ class ProductService extends BaseService implements ProductServiceInterface
     public function __construct(Product $model)
     {
         parent::__construct($model);
+    }
+
+    public function uploadPhoto($photo)
+    {
+        return $this->transaction(function() use ($photo) {
+            $name = time() . $photo->getClientOriginalName();
+            $filePath = 'products/photo/' . $name;
+            $path = Storage::disk('s3')->put($filePath, $photo);
+
+            return Storage::disk('s3')->url($path);
+        });
     }
 
     protected function formatAttributes($attributes): array
@@ -29,7 +41,6 @@ class ProductService extends BaseService implements ProductServiceInterface
 
     protected function afterShown($model): void
     {
-        
     }
 
     protected function afterUpdated($model, $attributes): void

@@ -6,12 +6,13 @@ use App\Http\Services\Contracts\BaseServiceInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\DatabaseTransaction;
+use App\Traits\FilterRebuild;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
 class BaseService implements BaseServiceInterface
 {     
-    use DatabaseTransaction;
+    use DatabaseTransaction, FilterRebuild;
 
     /**      
      * @var Model      
@@ -51,8 +52,9 @@ class BaseService implements BaseServiceInterface
         $model = $this->model;
 
         foreach($filters as $filter) {
-            $filter = JSON_DECODE($filter);
-            $method = Str::lower($filter->join) === 'or' ? 'orWhere' : 'where';
+            $filter = $this->rebuild((object) $filter);
+            $join = $filter->join ?? 'and';
+            $method = Str::lower($join) === 'or' ? 'orWhere' : 'where';
             $model = $model->{$method}($filter->column, $filter->operator, $filter->value);
         }
 

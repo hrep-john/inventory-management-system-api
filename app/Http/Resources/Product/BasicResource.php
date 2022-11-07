@@ -18,6 +18,7 @@ class BasicResource extends JsonResource
             'purchase_price' => $this->prices->purchase_price,
             'selling_price' => $this->prices->selling_price,
             'inventory' => $this->inventory,
+            'photo_url' => $this->photo_url,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
