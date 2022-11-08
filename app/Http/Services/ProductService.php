@@ -4,6 +4,7 @@ namespace App\Http\Services;
 use App\Http\Services\Contracts\ProductServiceInterface;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductService extends BaseService implements ProductServiceInterface
 {
@@ -30,7 +31,10 @@ class ProductService extends BaseService implements ProductServiceInterface
 
     protected function formatAttributes($attributes): array
     {
-        return $attributes['info'];
+        $data = $attributes['info'];
+        $data['code'] = Str::slug($data['name'], '-');
+
+        return $data;
     }
 
     protected function afterStored($model, $attributes): void
