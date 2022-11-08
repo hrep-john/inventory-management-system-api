@@ -15,7 +15,6 @@ class UpdateRequest extends FormRequest
         return [
             'info' => ['required'],
             'info.category_id' => ['required', 'integer', 'exists:categories,id'],
-            'info.code' => ['required', 'string', 'max:255', 'unique:products,code,' . $this->route('product')],
             'info.name' => ['required', 'string', 'max:255', 'unique:products,name,' . $this->route('product')],
             'info.remarks' => ['nullable', 'string', 'max:255'],
             'info.inventory' => ['required', 'integer'],

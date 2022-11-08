@@ -14,7 +14,6 @@ class StoreRequest extends FormRequest
         return [
             'info' => ['required'],
             'info.category_id' => ['required', 'integer', 'exists:categories,id'],
-            'info.code' => ['required', 'string', 'max:255', 'unique:products,code'],
             'info.name' => ['required', 'string', 'max:255', 'unique:products,name'],
             'info.remarks' => ['nullable', 'string', 'max:255'],
             'info.inventory' => ['required', 'integer'],
