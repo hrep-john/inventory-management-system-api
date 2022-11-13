@@ -38,6 +38,16 @@ class ProductController
         ], Response::HTTP_OK);
     }
 
+    public function search()
+    {
+        $results = $this->service->paginate();
+        $results->data = BasicResource::collection($results);
+
+        return $this->success([
+            'results' => $this->paginate($results)
+        ], Response::HTTP_OK);
+    }
+
     public function store(StoreRequest $request)
     {
         try {
