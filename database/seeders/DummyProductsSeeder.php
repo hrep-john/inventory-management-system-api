@@ -13,7 +13,7 @@ class DummyProductsSeeder extends Seeder
     public function run()
     {
         Product::factory()
-            ->count(5)
+            ->count(1000)
             ->create()
             ->each(function($product) {
                 $product->prices()->save(ProductPrice::factory()->make());
