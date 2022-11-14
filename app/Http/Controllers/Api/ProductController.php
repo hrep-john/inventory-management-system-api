@@ -130,9 +130,7 @@ class ProductController
         }
 
         try {
-            foreach(Product::cursor() as $model) {
-                $this->service->delete($model);
-            }
+            $this->service->delete($model);
         } catch (Exception $e) {
             $this->throwError(
                 Lang::get('error.delete.failed'), 
