@@ -34,9 +34,12 @@ class Product extends BaseModel
 
     public function getInfoAttribute() 
     {
+        $uom = $this->uoms->first();
+
         return [
             'id' => $this->id,
             'category_id' => $this->category_id,
+            'uom_id' => $uom?->id ?? null,
             'code' => $this->code,
             'name' => $this->name,
             'remarks' => $this->remarks,
