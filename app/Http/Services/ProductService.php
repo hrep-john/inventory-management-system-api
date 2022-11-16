@@ -49,7 +49,7 @@ class ProductService extends BaseService implements ProductServiceInterface
 
     protected function afterUpdated($model, $attributes): void
     {
-        $model->prices()->update($attributes['prices']);
+        $model->prices->update($attributes['prices']);
         $model->uoms()->attach($attributes['uoms']);
     }
 
