@@ -17,7 +17,7 @@ class StoreRequest extends FormRequest
             'info.name' => ['required', 'string', 'max:255', 'unique:products,name'],
             'info.remarks' => ['nullable', 'string', 'max:255'],
             'info.inventory' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'info.photo_url' => ['required', 'string', 'max:255'],
+            'info.photo_url' => ['nullable', 'string', 'max:255'],
             'prices' => ['required'],
             'prices.purchase_price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'prices.selling_price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
