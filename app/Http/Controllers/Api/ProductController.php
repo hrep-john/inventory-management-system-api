@@ -38,6 +38,15 @@ class ProductController
         ], Response::HTTP_OK);
     }
 
+    public function all()
+    {
+        $results = $this->service->all();
+
+        return $this->success([
+            'results' => BasicResource::collection($results)
+        ], Response::HTTP_OK);
+    }
+
     public function search()
     {
         $results = $this->service->paginate();
