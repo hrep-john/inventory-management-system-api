@@ -12,7 +12,7 @@ class UploadPhotoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photo' => ['required', 'max:5120', 'mimes:jpg,png'],
+            'photo' => ['required', 'max:10240', 'mimes:jpg,png'],
         ];
     }
 
@@ -24,7 +24,7 @@ class UploadPhotoRequest extends FormRequest
     public function messages()
     {
         return [
-            'photo.max' => 'The file must not exceed 5MB'
+            'photo.max' => 'The file must not exceed 10MB'
         ];
     }
 }
