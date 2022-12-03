@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePurchasesDetailTable extends Migration
+class CreateSalesDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreatePurchasesDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchases_detail', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('sales_details', function (Blueprint $table) {
+            $table->id('id');
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_uom_id');
-            $table->unsignedBigInteger('oprice');
-            $table->unsignedBigInteger('price');
-            $table->unsignedBigInteger('uom_qty');
-            $table->unsignedBigInteger('qty');
-            $table->unsignedBigInteger('discount');
+            $table->bigInteger('price');
+            $table->bigInteger('qty');
             $table->text('remarks')->nullable();
 
             $table->softDeletes();
@@ -30,6 +26,8 @@ class CreatePurchasesDetailTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
 
+            $table->foreign('transaction_id')->references('id')->on('purchases')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
         });
@@ -42,6 +40,6 @@ class CreatePurchasesDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchases_detail');
+        Schema::dropIfExists('sales_details');
     }
 }

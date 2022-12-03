@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Casts\Money;
 
 class Product extends BaseModel
 {
@@ -15,6 +15,10 @@ class Product extends BaseModel
         'updated_by',
         'inventory',
         'photo_url',
+    ];
+
+    protected $casts = [
+        'inventory' => Money::class,
     ];
 
     public function category()
@@ -50,13 +54,5 @@ class Product extends BaseModel
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
-    }
-
-    protected function inventory(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => ($value / 100),
-            set: fn ($value) => ($value * 100),
-        );
     }
 }

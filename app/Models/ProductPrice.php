@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Casts\Money;
 
 class ProductPrice extends BaseModel
 {
@@ -14,24 +14,13 @@ class ProductPrice extends BaseModel
         'updated_by',
     ];
 
+    protected $casts = [
+        'purchase_price' => Money::class,
+        'selling_price' => Money::class,
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class);
-    }
-
-    protected function purchasePrice(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => ($value / 100),
-            set: fn ($value) => ($value * 100),
-        );
-    }
-
-    protected function sellingPrice(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => ($value / 100),
-            set: fn ($value) => ($value * 100),
-        );
     }
 }

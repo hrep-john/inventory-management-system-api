@@ -26,5 +26,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Http\Services\Contracts\ProductServiceInterface::class, \App\Http\Services\ProductService::class);
         $this->app->bind(\App\Http\Services\Contracts\CategoryServiceInterface::class, \App\Http\Services\CategoryService::class);
         $this->app->bind(\App\Http\Services\Contracts\UomServiceInterface::class, \App\Http\Services\UomService::class);
+        $this->app->bind(\App\Http\Services\Contracts\PurchaseServiceInterface::class, \App\Http\Services\PurchaseService::class);
+        $this->app->bind(\App\Http\Services\Contracts\SaleServiceInterface::class, \App\Http\Services\SaleService::class);
     }
 }
