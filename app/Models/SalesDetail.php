@@ -21,6 +21,11 @@ class SalesDetail extends BaseModel
         'qty' => Money::class,
     ];
 
+    public function transaction()
+    {
+        return $this->morphOne(Transaction::class, 'transactionable');
+    }
+
     public function info()
     {
         return $this->belongsTo(Purchase::class, 'id', 'transaction_id');

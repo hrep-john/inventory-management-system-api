@@ -23,7 +23,6 @@ class ProductFactory extends Factory
             'category_id' => $category->id,
             'name' => 'Sample Product ' . fake()->name(),
             'remarks' => 'Sample Remarks ',
-            'inventory' => rand(1,999)
         ];
     }
 }
