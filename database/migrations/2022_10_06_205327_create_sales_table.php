@@ -15,9 +15,10 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_walk_in_name')->nullable();
-            $table->unsignedBigInteger('total_amount');
-            $table->unsignedBigInteger('total_profit');
+            $table->string('customer_name')->nullable();
+            $table->bigInteger('subtotal_amount');
+            $table->bigInteger('discount');
+            $table->bigInteger('total_amount');
             $table->text('remarks')->nullable();
 
             $table->softDeletes();

@@ -16,7 +16,9 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->string('supplier_name')->nullable();
-            $table->unsignedBigInteger('total_amount');
+            $table->bigInteger('subtotal_amount');
+            $table->bigInteger('discount');
+            $table->bigInteger('total_amount');
             $table->text('remarks')->nullable();
 
             $table->softDeletes();

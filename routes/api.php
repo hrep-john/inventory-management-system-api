@@ -24,3 +24,9 @@ Route::prefix('')->group(base_path('routes/group/category.php'));
 
 /** Unit of Measure (UOM) Routes **/
 Route::prefix('')->group(base_path('routes/group/uom.php'));
+
+/** Purchase Routes **/
+Route::prefix('')->group(base_path('routes/group/purchase.php'));
+
+/** Sale Routes **/
+Route::prefix('')->group(base_path('routes/group/sale.php'));
