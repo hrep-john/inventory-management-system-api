@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\Money;
-
 class Product extends BaseModel
 {
     protected $fillable = [
@@ -13,12 +11,7 @@ class Product extends BaseModel
         'remarks',
         'created_by',
         'updated_by',
-        'inventory',
         'photo_url',
-    ];
-
-    protected $casts = [
-        'inventory' => Money::class,
     ];
 
     public function category()
@@ -47,12 +40,28 @@ class Product extends BaseModel
             'code' => $this->code,
             'name' => $this->name,
             'remarks' => $this->remarks,
-            'inventory' => $this->inventory,
             'photo_url' => $this->photo_url,
+            'inventory' => $this->inventory,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function getInventoryAttribute() 
+    {
+        $inventory = $this->transactions->sum(function ($item) {
+            $multiplier = $item->transactionable_type === 'App\\Models\\SalesDetail' ? -1 : 1;
+
+            return  $multiplier * $item['qty'];
+        });
+
+        return $inventory;
     }
 }

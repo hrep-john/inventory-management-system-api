@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Helpers\ApiErrorResponse;
-use App\Http\Requests\Product\StoreRequest;
-use App\Http\Requests\Product\UpdateRequest;
-use App\Http\Requests\Product\UploadPhotoRequest;
-use App\Http\Resources\Product\BasicResource;
-use App\Http\Resources\Product\FullResource;
-use App\Http\Resources\Product\StockCardResource;
-use App\Http\Services\Contracts\ProductServiceInterface;
-use App\Models\Product;
+use App\Http\Requests\Transaction\StoreRequest;
+use App\Http\Requests\Transaction\UpdateRequest;
+use App\Http\Resources\Transaction\BasicResource;
+use App\Http\Resources\Transaction\FullResource;
+use App\Http\Services\Contracts\TransactionServiceInterface;
+use App\Models\Transaction;
 use App\Traits\ApiResponder;
 use App\Traits\Paginable;
 use Exception;
@@ -18,37 +16,18 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProductController
+class TransactionController
 {
     use ApiResponder, Paginable;
 
     protected $service;
 
-    public function __construct(ProductServiceInterface $service)
+    public function __construct(TransactionServiceInterface $service)
     {
         $this->service = $service;
     }
 
     public function index()
-    {
-        $results = $this->service->paginate();
-        $results->data = BasicResource::collection($results);
-
-        return $this->success([
-            'results' => $this->paginate($results)
-        ], Response::HTTP_OK);
-    }
-
-    public function all()
-    {
-        $results = $this->service->all();
-
-        return $this->success([
-            'results' => BasicResource::collection($results)
-        ], Response::HTTP_OK);
-    }
-
-    public function search()
     {
         $results = $this->service->paginate();
         $results->data = BasicResource::collection($results);
@@ -151,44 +130,5 @@ class ProductController
         }
 
         return $this->success(null, Response::HTTP_NO_CONTENT);
-    }
-
-    public function uploadPhoto(UploadPhotoRequest $request)
-    {
-        try {
-            $photo = $request->validated()['photo'];
-            $path = $this->service->uploadPhoto($photo);
-        } catch (Exception $e) {
-            $this->throwError(
-                Lang::get('error.upload.failed'), 
-                Arr::wrap($e->getMessage()), 
-                Response::HTTP_INTERNAL_SERVER_ERROR, 
-                ApiErrorResponse::SERVER_ERROR_CODE
-            );
-        }
-
-        return $this->success([
-            'path' => $path,
-            'message' => Lang::get('success.uploaded')
-        ], Response::HTTP_CREATED);
-    }
-
-    public function stockCard(Int $id)
-    {
-        $result = $this->service->find($id);
-
-        if (!$result) {
-            $this->throwError(
-                Lang::get('error.show.failed'), 
-                [], 
-                Response::HTTP_NOT_FOUND, 
-                ApiErrorResponse::UNKNOWN_ROUTE_CODE
-            );
-        }
-
-        return $this->success([
-            'result' => new StockCardResource($result->transactions)], 
-            Response::HTTP_OK
-        );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Sale;
 
+use App\Rules\PositiveInventory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -19,7 +20,7 @@ class StoreRequest extends FormRequest
             'details' => ['required', 'array'],
             'details.*.product_id' => ['required', 'integer', 'exists:products,id'],
             'details.*.price' => ['required', 'numeric'],
-            'details.*.qty' => ['required', 'numeric'],
+            'details.*.qty' => ['required', 'numeric', new PositiveInventory],
             'details.remarks' => ['nullable', 'string', 'max:255'],
         ];
     }

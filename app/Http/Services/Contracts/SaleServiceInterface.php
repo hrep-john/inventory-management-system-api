@@ -2,6 +2,6 @@
 
 namespace App\Http\Services\Contracts;
 
-interface SaleServiceInterface extends BaseServiceInterface
+interface SaleServiceInterface extends InventoryFlowServiceInterface
 {
 }

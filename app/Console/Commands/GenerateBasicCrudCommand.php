@@ -28,7 +28,7 @@ class GenerateBasicCrudCommand extends Command
     {
         $name = ucwords($this->argument('name'));
 
-        // Artisan::call(sprintf('make:migration "create %s table"', Str::plural(Str::lower($name))));
+        Artisan::call(sprintf('make:migration "create %s table"', Str::plural(Str::lower($name))));
         Artisan::call(sprintf('make:model %s', $name));
         Artisan::call(sprintf('make:factory %s', $name));
         Artisan::call(sprintf('make:controller Api/%sController --api --resource --model %s', $name, $name));
