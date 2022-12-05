@@ -74,7 +74,7 @@ class BaseService implements BaseServiceInterface
             $model = $that->model->create($data);
             $that->afterStored($model, $attributes);
 
-            return $this->model->find($model->id);
+            return $that->model->find($model->id);
         });
     }
 
@@ -90,7 +90,7 @@ class BaseService implements BaseServiceInterface
             $model->update($data);
             $that->afterUpdated($model, $attributes);
 
-            return $model;
+            return $that->model->find($model->id);
         });
     }
 
